@@ -1,0 +1,5 @@
+composer require laravel/homestead
+//with windows
+vendor\\bin\\homestead make
+//must issue this in git shell
+ssh-keygen -t rsa -b 4096
