@@ -3,9 +3,10 @@
 namespace App\Models\Seller;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Product;
+use App\Models\Product\Product;
+use App\User;
 
-class Seller extends Model
+class Seller extends User
 {
     public function products()
     {

@@ -3,9 +3,9 @@
 namespace App\Models\Product;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Seller;
-use App\Transaction;
-use App\Category;
+use App\Models\Seller\Seller;
+use App\Models\Transaction\Transaction;
+use App\Models\Category\Category;
 
 class Product extends Model
 {

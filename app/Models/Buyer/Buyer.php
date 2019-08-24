@@ -3,7 +3,8 @@
 namespace App\Models\Buyer;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Transaction;
+use App\Models\Transaction\Transaction;
+use App\User;
 
 class Buyer extends User
 {

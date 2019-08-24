@@ -46,4 +46,4 @@ Route::apiResource('transactions', 'Transaction\TransactionController', ['only' 
 /**
  * Users
  */
-Route::apiResource('transactions', 'Transaction\TransactionController', ['except' => ['create', 'edit']]);
+Route::apiResource('users', 'User\UserController', ['except' => ['create', 'edit']]);
