@@ -91,7 +91,8 @@ class UserController extends ApiController
     public function update(Request $request, User $user)
     {
         //$user = User::findOrFail($id);
-
+        //Rule::unique('users', 'email')->where(function (Builder $query) { $query->whereNull('deleted_at') }
+        
         $rules = [
             'email' => 'email|unique:users,email,' . $user->id,
             'password' => 'min:8|confirmed',

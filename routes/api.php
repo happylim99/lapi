@@ -22,6 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  * Buyers
  */
 Route::apiResource('buyers', 'Buyer\BuyerController', ['only' => ['index', 'show']]);
+Route::apiResource('buyers.transactions', 'Buyer\BuyerTransactionController', ['only' => ['index']]);
 
 /**
  * Categories
@@ -42,8 +43,19 @@ Route::apiResource('sellers', 'Seller\SellerController', ['only' => ['index', 's
  * Transaction
  */
 Route::apiResource('transactions', 'Transaction\TransactionController', ['only' => ['index', 'show']]);
+Route::apiResource('transactions.categories', 'Transaction\TransactionCategoryController', ['only' => ['index']]);
+Route::apiResource('transactions.sellers', 'Transaction\TransactionSellerController', ['only' => ['index']]);
 
 /**
  * Users
  */
 Route::apiResource('users', 'User\UserController', ['except' => ['create', 'edit']]);
+
+/**
+ * Working day master
+ */
+Route::apiResource('working_day_masters', 'WorkingDayMaster\WorkingDayMasterController', ['except' => ['create', 'edit']]);
+
+Route::apiResource('working_day_details', 'WorkingDayDetail\WorkingDayDetailController', ['except' => ['create', 'edit']]);
+
+Route::apiResource('working_day_by_year', 'WorkingDay\WorkingDayByYearController', ['except' => ['create', 'edit']]);

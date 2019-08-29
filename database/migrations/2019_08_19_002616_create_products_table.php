@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\Models\Product\Product;
+use App\Models\Product;
 
 class CreateProductsTable extends Migration
 {
@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('image');
             $table->bigInteger('seller_id')->unsigned();
             $table->timestamps();
-
+            $table->softDeletes();
             $table->foreign('seller_id')->references('id')->on('users');
         });
     }

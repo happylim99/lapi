@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Seller;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
-use App\Models\Seller\Seller;
+use App\Models\Seller;
 
 class SellerController extends ApiController
 {
@@ -20,9 +20,9 @@ class SellerController extends ApiController
         return $this->showAll($sellers);
     }
 
-    public function show($id)
+    public function show(Seller $seller)
     {
-        $seller = Seller::has('products')->findOrFail($id);
+        //$seller = Seller::has('products')->findOrFail($id);
         //return response()->json(['data' => $seller], 200);
         return $this->showOne($seller);
     }

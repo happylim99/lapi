@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Buyer;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Transaction\Transaction;
+use App\Models\Transaction;
 use App\User;
 use App\Scopes\BuyerScope;
 

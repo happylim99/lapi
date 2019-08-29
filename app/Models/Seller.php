@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Seller;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Product\Product;
+use App\Models\Product;
 use App\User;
 use App\Scopes\SellerScope;
 

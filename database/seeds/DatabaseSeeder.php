@@ -1,9 +1,9 @@
 <?php
 
 use App\User;
-use App\Models\Product\Product;
-use App\Models\Category\Category;
-use App\Models\Transaction\Transaction;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Transaction;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
         
         $usersQuantity = 100;
         $categoriesQuantity = 15;
-        $productsQuantity = 500;
-        $transactionsQuantity = 500;
+        $productsQuantity = 100;
+        $transactionsQuantity = 100;
 
         factory(User::class, $usersQuantity)->create();
         factory(Category::class, $categoriesQuantity)->create();
@@ -39,5 +39,8 @@ class DatabaseSeeder extends Seeder
             }
         );
         factory(Transaction::class, $transactionsQuantity)->create();
+
+        $this->call(WorkingDayMasterSeeder::class);
+        $this->call(WorkingDayDetailSeeder::class);
     }
 }
