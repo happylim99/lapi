@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Seller;
 use App\Models\Transaction;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
@@ -14,6 +15,10 @@ class Product extends Model
 
     const AVAILABLE_PRODUCT = 'available';
     const UNAVAILABLE_PRODUCT = 'unavailable';
+
+    protected $hidden = [
+        'pivot'
+    ];
 
     protected $dates = ['deleted_at'];
     protected $fillable = [
