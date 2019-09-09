@@ -40,11 +40,19 @@ Route::apiResource('categories.products', 'Category\CategoryProductController', 
  * Products
  */
 Route::apiResource('products', 'Product\ProductController', ['only' => ['index', 'show']]);
+Route::apiResource('products.transactions', 'Product\ProductTransactionController', ['only' => ['index']]);
+Route::apiResource('products.buyers', 'Product\ProductBuyerController', ['only' => ['index']]);
+Route::apiResource('products.categories', 'Product\ProductCategoryController', ['only' => ['index', 'update', 'destroy']]);
+Route::apiResource('products.buyers.transactions', 'Product\ProductBuyerTransactionController', ['only' => ['store']]);
 
 /**
  * Sellers
  */
 Route::apiResource('sellers', 'Seller\SellerController', ['only' => ['index', 'show']]);
+Route::apiResource('sellers.categories', 'Seller\SellerCategoryController', ['only' => ['index']]);
+Route::apiResource('sellers.buyers', 'Seller\SellerBuyerController', ['only' => ['index']]);
+Route::apiResource('sellers.transactions', 'Seller\SellerTransactionController', ['only' => ['index']]);
+Route::apiResource('sellers.products', 'Seller\SellerProductController', ['only' => ['index', 'store', 'update']]);
 
 /**
  * Transaction
