@@ -52,7 +52,7 @@ Route::apiResource('sellers', 'Seller\SellerController', ['only' => ['index', 's
 Route::apiResource('sellers.categories', 'Seller\SellerCategoryController', ['only' => ['index']]);
 Route::apiResource('sellers.buyers', 'Seller\SellerBuyerController', ['only' => ['index']]);
 Route::apiResource('sellers.transactions', 'Seller\SellerTransactionController', ['only' => ['index']]);
-Route::apiResource('sellers.products', 'Seller\SellerProductController', ['only' => ['index', 'store', 'update']]);
+Route::apiResource('sellers.products', 'Seller\SellerProductController', ['only' => ['index', 'store', 'update', 'destroy']]);
 
 /**
  * Transaction
@@ -65,6 +65,8 @@ Route::apiResource('transactions.sellers', 'Transaction\TransactionSellerControl
  * Users
  */
 Route::apiResource('users', 'User\UserController', ['except' => ['create', 'edit']]);
+Route::name('verify')->get('users/verify/{token}', 'User\UserController@verify');
+Route::name('resend')->get('users/{user}/resend', 'User\UserController@resend');
 
 /**
  * Working day master
