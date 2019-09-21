@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Seller;
-use App\Models\Transaction;
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Transaction;
+use Illuminate\Database\Eloquent\Model;
+use App\Transformers\ProductTransformer;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    public $transformer = ProductTransformer::class;
+
     use SoftDeletes;
 
     const AVAILABLE_PRODUCT = 'available';
