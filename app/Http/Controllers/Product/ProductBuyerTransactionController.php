@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Models\Product;
 use App\User;
+use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ApiController;
+use App\Transformers\TransactionTransformer;
 
 class ProductBuyerTransactionController extends ApiController
 {
+    public function __construct()
+    {
+        parent::__construct;
+        $this->middleware('transform.input' . TransactionTransformer::class)->only(['store']);
+    }
+
     /**
      * Display a listing of the resource.
      *
