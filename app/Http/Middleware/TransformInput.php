@@ -17,7 +17,7 @@ class TransformInput
     public function handle($request, Closure $next, $transformer)
     {
         $transformedInput = [];
-
+        
         foreach($request->all() as $input => $value) {
             $transformedInput[$transformer::originalAttribute($input)] = $value;
         }
@@ -27,19 +27,20 @@ class TransformInput
         
         if(isset($response->exception) && $response->exception instanceof ValidationException) {
             $data = $response->getData();
- 
+            
             $transformedErrors = [];
             
-            foreach($data->errors as $field => $error) {
+            foreach($data->error as $field => $error) {
                 $transformedField = $transformer::transformedAttribute($field);
 
                 $transformedErrors[$transformedField] = str_replace($field, $transformedField, $error);
             }
-            //dd($transformedErrors);
+            
             $data->errors = $transformedErrors;
 
             $response->setData($data);
         }
+
         return $response;
     }
 }

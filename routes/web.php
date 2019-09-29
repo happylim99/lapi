@@ -15,13 +15,9 @@
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-// $this->post('login', 'Auth\LoginController@login');
-// $this->post('logout', 'Auth\LoginController@logout')->name('logout');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-
-// Registration Routes...
-// $this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-// $this->post('register', 'Auth\RegisterController@register');
 
 // $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 // $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
@@ -31,6 +27,9 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 //Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/my-tokens', 'HomeController@getTokens')->name('personal-tokens');
+Route::get('/home/my-clients', 'HomeController@getClients')->name('personal-clients');
+Route::get('/home/authorized-clients', 'HomeController@getAuthorizedClients')->name('authorized-clients');
 
 Route::get('/', function () {
     return view('welcome');
