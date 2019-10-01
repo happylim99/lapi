@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\User;
 use App\Mail\UserCreated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Transformers\UserTransformer;
@@ -18,6 +19,9 @@ class UserController extends ApiController
         $this->middleware('auth:api')->except(['store', 'verify', 'resend']);
         $this->middleware('transform.input:' . UserTransformer::class)->only(['store', 'update']);
         $this->middleware('scope:manage-accounts')->only(['show', 'update']);
+        $this->middleware('can:view,user')->only(['show']);
+        $this->middleware('can:update,user')->only(['update']);
+        $this->middleware('can:delete,user')->only(['destroy']);
     }
     /**
      * Display a listing of the resource.
@@ -26,6 +30,7 @@ class UserController extends ApiController
      */
     public function index()
     {
+        $this->allowedAdminAction();
         $users = User::all();
         //$users = User::select('id')->get();
         //return response()->json(['data' => $users], 200);
@@ -102,8 +107,6 @@ class UserController extends ApiController
      */
     public function update(Request $request, User $user)
     {
-        //$user = User::findOrFail($id);
-        //Rule::unique('users', 'email')->where(function (Builder $query) { $query->whereNull('deleted_at') }
         
         $rules = [
             'email' => 'email|unique:users,email,' . $user->id,
@@ -113,6 +116,16 @@ class UserController extends ApiController
 
         if($request->has('name')) {
             $user->name = $request->name;
+        }
+
+        if($request->has('admin')) {
+            $this->allowedAdminAction();
+            if(!$user->isVerified()) {
+                //return response()->json(['error' => 'Only verified users can modify the admin field', 'code' => 409], 409);
+                return $this->errorResponse('Only verified users can modify the admin field', 409);
+            }
+
+            $user->admin = $request->admin;
         }
 
         if($request->has('email') && $user->email != $request->email) {
@@ -125,14 +138,7 @@ class UserController extends ApiController
             $user->password = bcrypt($request->password);
         }
 
-        if($request->has('admin')) {
-            if(!$user->isVerified()) {
-                //return response()->json(['error' => 'Only verified users can modify the admin field', 'code' => 409], 409);
-                return $this->errorResponse('Only verified users can modify the admin field', 409);
-            }
-
-            $user->admin = $request->admin;
-        }
+        
         
         if(!$user->isDirty()) {
             //return response()->json(['error' => 'You need to specify a different value to update', 'code' => 422], 422);
